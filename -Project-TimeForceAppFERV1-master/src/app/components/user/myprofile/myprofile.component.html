@@ -1,0 +1,164 @@
+<app-topbaruser></app-topbaruser>
+<!--Container-->
+<div class="py-5 mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3 text-center"></div>
+    </div>
+    <div class="row">
+      <div class="mx-auto col-lg-6 col-10" style="">
+        <h5 class="mb-4 text-primary"><b><b>Hola {{usuarioModificado.nombre}}, tu saldo actual es de {{usuarioModificado.balance}} HORAS</b></b></h5>
+        <form name="form" class="text-left" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <!--Datos de acceso-->
+          <p class=""><b><b>Datos de acceso</b></b></p>
+          <!--Usuario-->
+          <!--TODO: Controlar que solo meta números y letras y solo 9-->
+          <div class="form-group">
+            <label for="username">Usuario (DNI):</label>
+            <input [readOnly]="true" type="text" class="form-control w-50" id="username" aria-describedby="userHelp" name="username"
+                   [(ngModel)]="usuarioModificado.username" #username="ngModel"/>
+          </div>
+          <!--Contraseña-->
+          <div class="form-group">
+            <label for="password">Clave de acceso:</label>
+            <input [readOnly]="true" type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password"
+                   [(ngModel)]="usuarioModificado.password" #password="ngModel"/>
+          </div>
+          <!--Cambiar contraseña-->
+          <div class="form-group">
+            <label for="cAcceso2" style="color: #007bff">Cambiar clave de acceso:</label>
+            <input type="password" class="form-control" id="cAcceso2" name="cAcceso2" [(ngModel)]="usuarioModificado.password"
+                   #cAcceso2="ngModel"/>
+          </div>
+
+          <!--Datos personales-->
+          <p class=""><b><b>Datos personales</b></b></p>
+          <!--Nombre-->
+          <!--TODO: Controlar que solo meta letras-->
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input [readOnly]="true" type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="usuarioModificado.nombre" #nombre="ngModel"/>
+          </div>
+          <!--Apellidos-->
+          <!--TODO: Controlar que solo meta letras-->
+          <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input [readOnly]="true" type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="usuarioModificado.apellidos" #apellidos="ngModel"/>
+          </div>
+          <!--Fecha de nacimiento-->
+          <!--TODO: Controlar que la fecha no sea anterior a 100 años antes-->
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de nacimiento:</label>
+            <input [readOnly]="true" type="date" class="form-control" id="fechaNacimiento" aria-describedby="dateBirth" name="fechaNacimiento"
+                   [(ngModel)]="usuarioModificado.fechaNacimiento" #fechaNacimiento="ngModel"/>
+          </div>
+
+          <!--Datos de localización-->
+          <p class=""><b><b>Datos de localización</b></b></p>
+          <!--Tipo de vía-->
+          <!--TODO: Controlar que solo meta un valor const-tiposvia-->
+          <div class="form-group">
+            <label for="tipoVia" style="color: #007bff">Tipo de vía:</label>
+            <input type="text" class="form-control" id="tipoVia" name="tipoVia" [(ngModel)]="usuarioModificado.tipoVia"
+                   #tipoVia="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tipoVia.invalid }" required/>
+            <div *ngIf="f.submitted && tipoVia.invalid" class="invalid-feedback">
+              <div *ngIf="tipoVia.errors.required">Debes introducir un tipo de vía válido</div>
+            </div>
+          </div>
+          <!--Nombre-->
+          <div class="form-group">
+            <label for="nombreVia" style="color: #007bff">Nombre de vía:</label>
+            <input type="text" class="form-control" id="nombreVia" name="nombreVia" [(ngModel)]="usuarioModificado.nombreVia"
+                   #nombreVia="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nombreVia.invalid }" required/>
+            <div *ngIf="f.submitted && nombreVia.invalid" class="invalid-feedback">
+              <div *ngIf="nombreVia.errors.required">Nombre de vía es un campo requerido</div>
+            </div>
+          </div>
+          <!--Número-->
+          <!--TODO: Controlar que meta máximo tres digitos positivos-->
+          <div class="form-group">
+            <label for="numeroPortal" style="color: #007bff">Número de portal:</label>
+            <input type="number" class="form-control" id="numeroPortal" name="numeroPortal" [(ngModel)]="usuarioModificado.numeroPortal"
+                   #numeroPortal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && numeroPortal.invalid }" required/>
+            <div *ngIf="f.submitted && numeroPortal.invalid" class="invalid-feedback">
+              <div *ngIf="numeroPortal.errors.required">Número de portal es un campo requerido</div>
+            </div>
+          </div>
+          <!--Escalera-->
+          <div class="form-group">
+            <label for="escalera" style="color: #007bff">Escalera:</label>
+            <input type="text" class="form-control" id="escalera">
+          </div>
+          <!--Puerta-->
+          <!--TODO: Controlar que el número sea mayor que 0-->
+          <div class="form-group">
+            <label for="puerta" style="color: #007bff">Puerta:</label>
+            <input type="number" class="form-control" id="puerta">
+          </div>
+          <!--Localidad-->
+          <div class="form-group">
+            <label for="localidad" style="color: #007bff">Localidad:</label>
+            <input type="text" class="form-control" id="localidad" name="localidad"
+                   [(ngModel)]="usuarioModificado.localidad" #localidad="ngModel"
+                   [ngClass]="{ 'is-invalid': f.submitted && localidad.invalid }" required/>
+            <div *ngIf="f.submitted && localidad.invalid" class="invalid-feedback">
+              <div *ngIf="localidad.errors.required">Localidad es un campo requerido</div>
+            </div>
+          </div>
+          <!--Provincia-->
+          <!--TODO: Controlar que solo sea un valor de const-provincias y crear la constante-->
+          <div class="form-group">
+            <label for="provincia" style="color: #007bff">Provincia:</label>
+            <input type="text" class="form-control" id="provincia" name="provincia" [(ngModel)]="usuarioModificado.provincia"
+                   #provincia="ngModel" [ngClass]="{ 'is-invalid': f.submitted && provincia.invalid }" required/>
+            <div *ngIf="f.submitted && provincia.invalid" class="invalid-feedback">
+              <div *ngIf="provincia.errors.required">Provincia es un campo requerido</div>
+            </div>
+          </div>
+          <!--Código postal-->
+          <!--TODO: Controlar que meta exactamente 5 números positivos-->
+          <div class="form-group">
+            <label for="codPostal" style="color: #007bff">Código postal:</label>
+            <input type="number" class="form-control" id="codPostal" name="codPostal" [(ngModel)]="usuarioModificado.codPostal"
+                   #codPostal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && codPostal.invalid }" required/>
+            <div *ngIf="f.submitted && codPostal.invalid" class="invalid-feedback">
+              <div *ngIf="codPostal.errors.required">Código postal es un campo requerido</div>
+            </div>
+          </div>
+
+          <!--Datos de contacto-->
+          <p class=""><b><b>Datos de contacto</b></b></p>
+          <!--Móvil-->
+          <!--TODO: Controlar que meta exactamente 9 números positivos-->
+          <div class="form-group">
+            <label for="telefono" style="color: #007bff">Número de móvil:</label>
+            <input type="number" class="form-control w-50" id="telefono" name="telefono"
+                   [(ngModel)]="usuarioModificado.telefono" #telefono="ngModel"
+                   [ngClass]="{ 'is-invalid': f.submitted && telefono.invalid }" required/>
+            <div *ngIf="f.submitted && telefono.invalid" class="invalid-feedback">
+              <div *ngIf="telefono.errors.required">Por favor, introduce tu número de móvil</div>
+            </div>
+          </div>
+          <!--Email-->
+          <div class="form-group">
+            <label for="mail" style="color: #007bff">Email:</label>
+            <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="usuarioModificado.mail" #mail="ngModel"
+                   [ngClass]="{ 'is-invalid': f.submitted && mail.invalid }" required email/>
+            <div *ngIf="f.submitted && mail.invalid" class="invalid-feedback">
+              <div *ngIf="mail.errors.required">Por favor, introduce tu email</div>
+              <div *ngIf="mail.errors.email">Por favor, introduce un email válido</div>
+            </div>
+          </div>
+          <!--Enviar formulario-->
+          <div class="mx-auto text-center">
+            <button type="submit" class="btn headerstyle btn-lg" (click)="modificarUsuario()">Actualizar datos</button>
+          </div>
+          <!--Eliminar cuenta-->
+          <div class="mx-auto text-center mt-5">
+            <button type="button" disabled class="btn bg-danger text-light" (click)="eliminarUsuario(usuarioModificado)">Borrar cuenta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
